@@ -31,7 +31,7 @@ ASSIGNED_PERMISSIONS = {
 class UserenaManager(UserManager):
     """ Extra functionality for the Userena model. """
 
-    def create_user(self, username, email, password, active=False,
+    def create_user(self, username, email, password, dob, active=False,
                     send_email=True):
         """
         A simple wrapper that creates a new :class:`User`.
@@ -71,7 +71,7 @@ class UserenaManager(UserManager):
         try:
             new_profile = new_user.get_profile()
         except profile_model.DoesNotExist:
-            new_profile = profile_model(user=new_user)
+            new_profile = profile_model(user=new_user, dob=dob)
             new_profile.save(using=self._db)
 
         # Give permissions to view and change profile

@@ -81,16 +81,19 @@ class SignupForm(forms.Form):
 
     def save(self):
         """ Creates a new user and account. Returns the newly created user. """
-        username, email, password = (self.cleaned_data['username'],
+        username, email, password, dob = (self.cleaned_data['username'],
                                      self.cleaned_data['email'],
-                                     self.cleaned_data['password1'])
+                                     self.cleaned_data['password1'],
+                                     self.cleaned_data['dob'])
 
         new_user = UserenaSignup.objects.create_user(username,
                                                      email,
                                                      password,
+                                                     dob,
                                                      not userena_settings.USERENA_ACTIVATION_REQUIRED,
                                                      userena_settings.USERENA_ACTIVATION_REQUIRED)
         return new_user
+
 
 class SignupFormOnlyEmail(SignupForm):
     """
